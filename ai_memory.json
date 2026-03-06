@@ -1,12 +1,167 @@
 {
-  "episodes": 0,
-  "epsilon": 0.18,
-  "manual_samples": 475,
+  "backend": "torch",
+  "device": "cuda",
+  "episodes": 9,
+  "epsilon": 0.17206012410436072,
+  "imitation_updates": 612,
+  "manual_samples": 1205,
   "policy_counts": {
+    "lane_0:center:near:center:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:center:near:center:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:center:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:center:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
     "lane_0:center:near:center:none:safe:many:ready": {
       "-1:0": 0,
       "-1:1": 0,
       "0:0": 5,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:center:near:center:none:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:center:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:center:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:center:near:far_right:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:center:near:far_right:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:center:near:far_right:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:center:near:far_right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:center:near:far_right:mid:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:center:near:far_right:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:center:near:far_right:near:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:center:near:far_right:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:center:near:far_right:near:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:center:near:far_right:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
       "0:1": 0,
       "1:0": 0,
       "1:1": 0
@@ -27,10 +182,346 @@
       "1:0": 0,
       "1:1": 0
     },
+    "lane_0:far_right:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:far_right:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:far_right:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:far_right:far:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:far_right:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:far_right:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:far_right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:far_right:mid:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:far_right:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:far_right:near:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:far_right:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:far_right:near:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:far_right:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:right:near:danger:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:left:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
     "lane_0:right:near:center:none:safe:many:ready": {
       "-1:0": 0,
       "-1:1": 0,
       "0:0": 2,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:center:none:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:far_right:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:far_right:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:far_right:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:far_right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:far_right:mid:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:far_right:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:far_right:near:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:far_right:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:far_right:near:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:far_right:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:right:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:right:mid:danger:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:right:mid:danger:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:right:near:danger:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:center:near:center:far:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:center:near:center:mid:danger:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:center:near:center:mid:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:center:near:center:near:danger:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:center:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:center:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
       "0:1": 0,
       "1:0": 0,
       "1:1": 0
@@ -51,6 +542,70 @@
       "1:0": 0,
       "1:1": 0
     },
+    "lane_1:center:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:center:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:center:near:far_right:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:center:near:far_right:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:center:near:far_right:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:center:near:far_right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:center:near:far_right:near:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:center:near:far_right:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
     "lane_1:center:near:left:far:safe:many:ready": {
       "-1:0": 0,
       "-1:1": 0,
@@ -59,10 +614,42 @@
       "1:0": 6,
       "1:1": 0
     },
-    "lane_1:far_left:near:center:none:safe:many:ready": {
-      "-1:0": 4,
+    "lane_1:far_left:near:center:far:safe:many:ready": {
+      "-1:0": 0,
       "-1:1": 0,
-      "0:0": 9,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_left:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_left:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_left:near:center:none:safe:many:ready": {
+      "-1:0": 5,
+      "-1:1": 0,
+      "0:0": 52,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_left:near:center:none:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
       "0:1": 0,
       "1:0": 0,
       "1:1": 0
@@ -107,12 +694,260 @@
       "1:0": 0,
       "1:1": 0
     },
+    "lane_1:far_left:near:right:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_left:near:right:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:center:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:center:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:center:near:danger:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
     "lane_1:far_right:near:center:none:safe:many:ready": {
       "-1:0": 0,
       "-1:1": 0,
       "0:0": 0,
       "0:1": 0,
       "1:0": 10,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:center:none:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:far_right:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:far_right:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:far_right:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:far_right:mid:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:far_right:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:far_right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:far_right:mid:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:far_right:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:far_right:near:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:far_right:near:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:far_right:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:far_right:near:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:far_right:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:left:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:left:mid:danger:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:left:mid:danger:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:left:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:left:near:danger:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:right:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
       "1:1": 0
     },
     "lane_1:left:near:center:none:safe:many:ready": {
@@ -131,6 +966,142 @@
       "1:0": 0,
       "1:1": 0
     },
+    "lane_1:left:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:far_left:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:far_left:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:far_right:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:far_right:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:far_right:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:far_right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:far_right:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:left:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:left:near:danger:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:left:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:right:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:right:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:right:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:right:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
     "lane_1:right:near:center:none:safe:many:ready": {
       "-1:0": 0,
       "-1:1": 0,
@@ -139,10 +1110,106 @@
       "1:0": 11,
       "1:1": 0
     },
+    "lane_1:right:near:center:none:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:right:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:right:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:right:near:far_right:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:right:near:far_right:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:right:near:far_right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:center:far:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
     "lane_2:center:near:center:none:safe:many:ready": {
       "-1:0": 0,
       "-1:1": 0,
       "0:0": 24,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:center:none:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
       "0:1": 0,
       "1:0": 0,
       "1:1": 0
@@ -155,6 +1222,110 @@
       "1:0": 7,
       "1:1": 0
     },
+    "lane_2:center:near:far_left:far:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:far_left:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:far_left:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:far_left:near:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:far_left:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:far_right:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:far_right:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:far_right:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:far_right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:far_right:near:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:far_right:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:left:far:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:left:far:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
     "lane_2:center:near:left:far:safe:many:ready": {
       "-1:0": 0,
       "-1:1": 0,
@@ -163,10 +1334,202 @@
       "1:0": 1,
       "1:1": 0
     },
-    "lane_2:far_left:near:center:none:safe:many:ready": {
+    "lane_2:center:near:left:far:safe:some:ready": {
       "-1:0": 0,
       "-1:1": 0,
-      "0:0": 4,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:left:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:left:mid:danger:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:left:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:left:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:right:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:right:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:right:near:danger:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:right:near:danger:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 25,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:mid:danger:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 8,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:mid:danger:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:mid:danger:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 26,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:near:danger:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 11,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:near:danger:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:near:danger:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:none:safe:many:ready": {
+      "-1:0": 18,
+      "-1:1": 0,
+      "0:0": 165,
       "0:1": 0,
       "1:0": 0,
       "1:1": 0
@@ -174,7 +1537,39 @@
     "lane_2:far_left:near:center:none:safe:many:wait": {
       "-1:0": 0,
       "-1:1": 0,
-      "0:0": 19,
+      "0:0": 48,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:far:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:far:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
       "0:1": 0,
       "1:0": 0,
       "1:1": 0
@@ -182,7 +1577,7 @@
     "lane_2:far_left:near:far_left:far:safe:many:ready": {
       "-1:0": 7,
       "-1:1": 0,
-      "0:0": 11,
+      "0:0": 23,
       "0:1": 0,
       "1:0": 0,
       "1:1": 0
@@ -190,7 +1585,39 @@
     "lane_2:far_left:near:far_left:far:safe:many:wait": {
       "-1:0": 0,
       "-1:1": 0,
-      "0:0": 1,
+      "0:0": 8,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:far:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:mid:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:mid:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
       "0:1": 0,
       "1:0": 0,
       "1:1": 0
@@ -198,7 +1625,47 @@
     "lane_2:far_left:near:far_left:mid:safe:many:ready": {
       "-1:0": 2,
       "-1:1": 0,
-      "0:0": 16,
+      "0:0": 34,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:mid:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:near:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:near:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
       "0:1": 0,
       "1:0": 0,
       "1:1": 0
@@ -206,7 +1673,31 @@
     "lane_2:far_left:near:far_left:near:safe:many:ready": {
       "-1:0": 0,
       "-1:1": 0,
-      "0:0": 13,
+      "0:0": 34,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:near:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
       "0:1": 0,
       "1:0": 0,
       "1:1": 0
@@ -215,6 +1706,22 @@
       "-1:0": 8,
       "-1:1": 0,
       "0:0": 6,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_right:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_right:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
       "0:1": 0,
       "1:0": 0,
       "1:1": 0
@@ -235,6 +1742,22 @@
       "1:0": 0,
       "1:1": 0
     },
+    "lane_2:far_left:near:far_right:mid:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_right:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
     "lane_2:far_left:near:far_right:near:safe:many:ready": {
       "-1:0": 0,
       "-1:1": 0,
@@ -251,10 +1774,466 @@
       "1:0": 0,
       "1:1": 0
     },
+    "lane_2:far_left:near:far_right:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 26,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:mid:danger:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 7,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:mid:danger:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:mid:danger:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 28,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:mid:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:near:danger:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 13,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:near:danger:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:near:danger:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:near:danger:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:near:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:left:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:right:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 29,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:right:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 9,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:right:mid:danger:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 8,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:right:mid:danger:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:right:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 28,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:right:near:danger:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 26,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:right:near:danger:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:right:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:far_left:far:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:far_left:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:far_left:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:far_left:near:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:far_left:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:far_right:far:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:far_right:far:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:far_right:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:far_right:mid:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:far_right:mid:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:far_right:mid:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:far_right:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:far_right:near:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:far_right:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:left:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:left:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:right:far:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:right:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:right:mid:danger:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:right:mid:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_right:near:right:near:danger:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:left:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:left:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
     "lane_2:left:near:center:none:safe:many:ready": {
       "-1:0": 0,
       "-1:1": 0,
       "0:0": 13,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:left:near:center:none:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:left:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:left:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
       "0:1": 0,
       "1:0": 0,
       "1:1": 0
@@ -267,6 +2246,14 @@
       "1:0": 0,
       "1:1": 0
     },
+    "lane_2:left:near:far_left:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
     "lane_2:left:near:far_left:near:safe:many:ready": {
       "-1:0": 0,
       "-1:1": 0,
@@ -274,7 +2261,1040 @@
       "0:1": 0,
       "1:0": 0,
       "1:1": 0
+    },
+    "lane_2:left:near:far_left:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:left:near:left:far:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:left:near:left:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:left:near:right:mid:danger:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:left:near:right:mid:danger:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:left:near:right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:center:none:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:center:none:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:far_left:far:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:far_left:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:far_left:mid:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:far_left:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:far_left:near:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:far_left:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:far_right:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:far_right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:far_right:near:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:far_right:near:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:far_right:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:right:near:danger:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:right:near:right:near:danger:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:center:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:center:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:center:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:center:near:far_left:far:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:center:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:center:mid:danger:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:center:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:center:near:danger:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:center:near:danger:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:center:none:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:center:none:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:far:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:far:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:far:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:mid:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:mid:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:mid:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:near:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:near:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:near:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:near:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_left:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_right:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_right:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_right:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_right:mid:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_right:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_right:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:far_right:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:left:mid:danger:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:left:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:left:near:danger:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_left:near:left:near:danger:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:far_right:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:left:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:left:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:left:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:left:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:right:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:right:near:far_left:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_3:right:near:far_left:mid:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:center:near:center:far:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:center:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:center:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:center:near:left:mid:danger:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:center:near:left:mid:danger:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:center:near:left:mid:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:center:near:left:mid:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:center:near:left:near:danger:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:center:near:left:near:danger:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:center:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:center:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:center:mid:danger:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:center:mid:danger:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:center:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:center:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:center:near:danger:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:center:near:danger:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:center:none:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 13,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:center:none:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:far_left:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 45,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:far_left:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:far_left:far:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:far_left:far:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:far_left:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 76,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:far_left:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:far_left:mid:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:far_left:mid:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:far_left:near:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 42,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:far_left:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:far_left:near:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:far_left:near:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:left:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:left:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:left:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:left:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:left:near:danger:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:far_left:near:left:near:danger:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:left:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:left:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:left:near:center:none:safe:some:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:left:near:center:none:safe:some:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:left:near:far_left:near:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:left:near:left:far:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:left:near:left:far:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:left:near:left:mid:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:right:near:center:none:safe:few:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_4:right:near:center:none:safe:few:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
     }
   },
-  "q_values": {}
+  "rl_updates": 43054,
+  "train_steps": 43666
 }

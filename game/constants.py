@@ -32,7 +32,7 @@ LIGHT_CYAN = (180, 255, 255)
 # Player settings
 # ---------------------------------------------------------------------------
 PLAYER_SPEED: int = 5
-PLAYER_SHOOT_DELAY: int = 300       # milliseconds between shots
+PLAYER_SHOOT_DELAY: int = 500        # milliseconds between shots
 PLAYER_LIVES: int = 3
 
 # ---------------------------------------------------------------------------
@@ -52,7 +52,7 @@ ENEMY_ANIM_DELAY: int = 600         # ms between sprite animation frames
 # ---------------------------------------------------------------------------
 # Bullet settings
 # ---------------------------------------------------------------------------
-PLAYER_BULLET_SPEED: int = -12      # negative = up
+PLAYER_BULLET_SPEED: int = -7      # negative = up
 ENEMY_BULLET_SPEED: int = 7
 ENEMY_SHOOT_CHANCE: float = 0.001   # per-enemy probability each frame
 
@@ -70,7 +70,7 @@ NUM_STARS: int = 80
 # ---------------------------------------------------------------------------
 # AI settings
 # ---------------------------------------------------------------------------
-AI_ENABLED_BY_DEFAULT: bool = False
+AI_ENABLED_BY_DEFAULT: bool = True
 AI_EPSILON_START: float = 0.18
 AI_EPSILON_MIN: float = 0.03
 AI_EPSILON_DECAY: float = 0.995
@@ -78,10 +78,19 @@ AI_LEARNING_RATE: float = 0.25
 AI_DISCOUNT_FACTOR: float = 0.92
 AI_IMITATION_WEIGHT: float = 0.6
 AI_MEMORY_FILE: str = "ai_memory.json"
+AI_MODEL_FILE: str = "ai_model.pt"
+AI_HIDDEN_DIM: int = 128
+AI_BATCH_SIZE: int = 128
+AI_REPLAY_BUFFER_SIZE: int = 8192
+AI_TARGET_SYNC_INTERVAL: int = 64
+AI_MIN_REPLAY_TO_TRAIN: int = 32
+AI_UPDATES_PER_STEP: int = 2
+AI_BACKGROUND_UPDATES_PER_FRAME: int = 2
+AI_BACKGROUND_TRAIN_INTERVAL_FRAMES: int = 6
 AI_REWARD_SURVIVAL: float = 0.02
 AI_REWARD_ALIGNMENT: float = 0.03
 AI_REWARD_ENEMY_DESTROYED: float = 2.5
 AI_REWARD_LEVEL_CLEAR: float = 5.0
-AI_PENALTY_SHOT: float = -0.04
+AI_PENALTY_SHOT: float = -0.005
 AI_PENALTY_PLAYER_HIT: float = -4.0
 AI_PENALTY_GAME_OVER: float = -8.0

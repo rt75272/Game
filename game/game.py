@@ -18,6 +18,7 @@ from game.constants import (
     GREEN,
     YELLOW,
     CYAN,
+    LIGHT_CYAN,
     GRAY,
     RED,
     ORANGE,
@@ -34,6 +35,7 @@ from game.constants import (
     ENEMY_SHOOT_CHANCE,
     NUM_STARS,
     AI_ENABLED_BY_DEFAULT,
+    AI_BACKGROUND_TRAIN_INTERVAL_FRAMES,
     AI_REWARD_SURVIVAL,
     AI_REWARD_ALIGNMENT,
     AI_REWARD_ENEMY_DESTROYED,
@@ -76,6 +78,7 @@ class Game:
         self._ai_enabled: bool = AI_ENABLED_BY_DEFAULT
         self._ai = LearningAI()
         self._manual_shoot_requested: bool = False
+        self._frame_counter: int = 0
 
         # Sprite groups (populated by _new_game / _new_level)
         self._all_sprites: pygame.sprite.Group = pygame.sprite.Group()
@@ -198,6 +201,7 @@ class Game:
     # ------------------------------------------------------------------
 
     def _update(self) -> None:
+        self._frame_counter += 1
         self._stars.update()
 
         if self._state != "playing":
@@ -220,6 +224,9 @@ class Game:
 
         # --- enemy lateral movement ---
         self._move_enemies()
+
+        if self._ai_enabled and self._frame_counter % AI_BACKGROUND_TRAIN_INTERVAL_FRAMES == 0:
+            self._ai.train_background()
 
         # --- enemy shooting ---
         self._enemy_shoot()
@@ -467,6 +474,9 @@ class Game:
             level_surf,
             (SCREEN_WIDTH // 2 - level_surf.get_width() // 2, 8),
         )
+
+        self._draw_ai_training_panel()
+
         ai_surf = self._font_small.render(
             (
                 f"AI: {'ON' if self._ai_enabled else 'OFF'} (T to toggle)"
@@ -487,6 +497,22 @@ class Game:
             (SCREEN_WIDTH, SCREEN_HEIGHT - 36),
             1,
         )
+
+    def _draw_ai_training_panel(self) -> None:
+        lines = self._ai.training_overlay_lines()
+        line_height = self._font_small.get_linesize()
+        width = max(self._font_small.size(line)[0] for line in lines) + 20
+        height = line_height * len(lines) + 16
+        panel = pygame.Surface((width, height), pygame.SRCALPHA)
+        panel.fill((8, 18, 32, 188))
+        x = SCREEN_WIDTH - width - 10
+        y = 40
+        self._screen.blit(panel, (x, y))
+        pygame.draw.rect(self._screen, CYAN, pygame.Rect(x, y, width, height), 1)
+
+        for index, line in enumerate(lines):
+            surf = self._font_small.render(line, True, LIGHT_CYAN if index == 0 else WHITE)
+            self._screen.blit(surf, (x + 10, y + 8 + index * line_height))
 
     # --- text helpers ---
 

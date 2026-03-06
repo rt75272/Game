@@ -9,6 +9,7 @@ os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
 
 import pygame
 import pytest
+import torch
 
 from game.ai import LearningAI
 
@@ -78,3 +79,43 @@ def test_ai_repeats_rewarded_action_after_learning(tmp_path) -> None:
 
     assert learned_move_action == move_action
     assert learned_should_shoot == should_shoot
+
+
+def test_ai_exposes_training_metrics(tmp_path) -> None:
+    memory_path = str(tmp_path / "ai_memory.json")
+    player, enemies, enemy_bullets = _create_sample_game_state()
+
+    ai = LearningAI(memory_path=memory_path, epsilon=0.0)
+    ai.observe_player_action(
+        player,
+        enemies,
+        enemy_bullets,
+        move_dir=0,
+        should_shoot=True,
+        can_shoot=True,
+    )
+
+    lines = ai.training_overlay_lines()
+
+    assert any("backend: torch" in line for line in lines)
+    assert any("device:" in line for line in lines)
+    assert any("demos: 1" in line for line in lines)
+
+
+def test_ai_ignores_incompatible_saved_model(tmp_path) -> None:
+    memory_path = str(tmp_path / "ai_memory.json")
+    model_path = str(tmp_path / "ai_memory.pt")
+
+    torch.save(
+        {
+            "policy_state": {
+                "0.weight": torch.zeros((64, 30), dtype=torch.float32),
+                "0.bias": torch.zeros((64,), dtype=torch.float32),
+            }
+        },
+        model_path,
+    )
+
+    ai = LearningAI(memory_path=memory_path, epsilon=0.0)
+
+    assert ai.device_name() in {"cpu", "cuda"}

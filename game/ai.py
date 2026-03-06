@@ -1,28 +1,41 @@
-"""Learning AI controller that mimics the player and improves with reward."""
+"""Learning AI controller backed by a small PyTorch Q-network."""
 
 from __future__ import annotations
 
 import json
 import os
 import random
+from collections import deque
+
+import torch
+from torch import nn
 
 from game.constants import (
+    AI_BATCH_SIZE,
     AI_DISCOUNT_FACTOR,
     AI_EPSILON_DECAY,
     AI_EPSILON_MIN,
     AI_EPSILON_START,
+    AI_HIDDEN_DIM,
     AI_IMITATION_WEIGHT,
     AI_LEARNING_RATE,
     AI_MEMORY_FILE,
+    AI_BACKGROUND_UPDATES_PER_FRAME,
+    AI_MIN_REPLAY_TO_TRAIN,
+    AI_MODEL_FILE,
+    AI_REPLAY_BUFFER_SIZE,
+    AI_TARGET_SYNC_INTERVAL,
+    AI_UPDATES_PER_STEP,
     SCREEN_WIDTH,
 )
 
 
 Action = tuple[int, bool]
+Transition = tuple[list[float], int, float, list[float] | None, bool, bool]
 
 
 class LearningAI:
-    """Tabular Q-learning agent with imitation bias from manual play."""
+    """PyTorch-powered Q-network with imitation updates from manual play."""
 
     _ACTIONS: tuple[Action, ...] = (
         (-1, False),
@@ -31,6 +44,22 @@ class LearningAI:
         (-1, True),
         (0, True),
         (1, True),
+    )
+    _PLAYER_BUCKETS = ("lane_0", "lane_1", "lane_2", "lane_3", "lane_4")
+    _DX_BUCKETS = ("far_left", "left", "center", "right", "far_right")
+    _DISTANCE_BUCKETS = ("none", "near", "mid", "far")
+    _DANGER_BUCKETS = ("safe", "danger")
+    _ENEMY_COUNT_BUCKETS = ("few", "some", "many")
+    _COOLDOWN_BUCKETS = ("ready", "wait")
+    _TOKEN_GROUPS = (
+        _PLAYER_BUCKETS,
+        _DX_BUCKETS,
+        _DISTANCE_BUCKETS,
+        _DX_BUCKETS,
+        _DISTANCE_BUCKETS,
+        _DANGER_BUCKETS,
+        _ENEMY_COUNT_BUCKETS,
+        _COOLDOWN_BUCKETS,
     )
 
     def __init__(
@@ -47,7 +76,7 @@ class LearningAI:
         base_dir = os.path.dirname(os.path.dirname(__file__))
         default_path = os.path.join(base_dir, AI_MEMORY_FILE)
         self._memory_path = memory_path or default_path
-        self._epsilon_start = epsilon
+        self._model_path = self._derive_model_path(self._memory_path)
         self._epsilon = epsilon
         self._epsilon_min = epsilon_min
         self._epsilon_decay = epsilon_decay
@@ -56,27 +85,50 @@ class LearningAI:
         self._imitation_weight = imitation_weight
         self._episodes: int = 0
         self._manual_samples: int = 0
-
-        self._q_values: dict[str, dict[str, float]] = {}
+        self._train_steps: int = 0
+        self._rl_updates: int = 0
+        self._imitation_updates: int = 0
         self._policy_counts: dict[str, dict[str, int]] = {}
-        self._last_state: str | None = None
-        self._last_action_key: str | None = None
+        self._recent_losses: deque[float] = deque(maxlen=120)
+        self._recent_rewards: deque[float] = deque(maxlen=120)
+        self._replay_buffer: deque[Transition] = deque(maxlen=AI_REPLAY_BUFFER_SIZE)
+        self._last_state_key: str | None = None
+        self._last_state_vector: list[float] | None = None
+        self._last_action_index: int | None = None
+        self._last_can_shoot: bool = False
         self._pending_reward: float = 0.0
         self._dirty_updates: int = 0
+
+        self._device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        input_dim = sum(len(group) for group in self._TOKEN_GROUPS)
+        output_dim = len(self._ACTIONS)
+        self._policy_net = self._build_network(input_dim, output_dim)
+        self._target_net = self._build_network(input_dim, output_dim)
+        self._target_net.load_state_dict(self._policy_net.state_dict())
+        self._target_net.eval()
+        self._optimizer = torch.optim.Adam(self._policy_net.parameters(), lr=self._learning_rate)
+        self._loss_fn = nn.SmoothL1Loss()
+
         self._load()
 
     def choose_actions(
         self, player, enemies, enemy_bullets, *, can_shoot: bool
     ) -> tuple[int, bool]:
         """Return movement direction (-1, 0, 1) and whether to shoot."""
-        state = self._state_key(player, enemies, enemy_bullets, can_shoot=can_shoot)
-        self._update_from_transition(next_state=state)
+        state_key, state_vector = self._encode_state(
+            player, enemies, enemy_bullets, can_shoot=can_shoot
+        )
+        self._update_from_transition(
+            next_state_vector=state_vector,
+            next_can_shoot=can_shoot,
+        )
 
-        valid_actions = self._valid_action_keys(can_shoot)
-        action_key = self._choose_action_key(state, valid_actions)
-        self._last_state = state
-        self._last_action_key = action_key
-        return self._decode_action(action_key)
+        action_index = self._choose_action_index(state_key, state_vector, can_shoot)
+        self._last_state_key = state_key
+        self._last_state_vector = state_vector
+        self._last_action_index = action_index
+        self._last_can_shoot = can_shoot
+        return self._ACTIONS[action_index]
 
     def observe_player_action(
         self,
@@ -88,12 +140,16 @@ class LearningAI:
         *,
         can_shoot: bool,
     ) -> None:
-        """Capture manual play so the AI can mimic the user's tendencies."""
-        state = self._state_key(player, enemies, enemy_bullets, can_shoot=can_shoot)
-        action_key = self._encode_action(move_dir, should_shoot and can_shoot)
-        action_counts = self._ensure_action_store(self._policy_counts, state, int)
+        """Capture manual play so the model learns from user demonstrations."""
+        state_key, state_vector = self._encode_state(
+            player, enemies, enemy_bullets, can_shoot=can_shoot
+        )
+        action = (move_dir, should_shoot and can_shoot)
+        action_key = self._encode_action(*action)
+        action_counts = self._ensure_action_store(self._policy_counts, state_key)
         action_counts[action_key] += 1
         self._manual_samples += 1
+        self._train_imitation_step(state_vector, self._action_to_index(action))
         self._dirty_updates += 1
         if self._dirty_updates >= 25:
             self.save()
@@ -101,106 +157,274 @@ class LearningAI:
     def apply_reward(self, reward: float, *, done: bool = False) -> None:
         """Apply reward to the in-flight transition."""
         self._pending_reward += reward
+        self._recent_rewards.append(reward)
         if done:
-            self._update_from_transition(next_state=None, done=True)
+            self._update_from_transition(next_state_vector=None, next_can_shoot=False, done=True)
             self._episodes += 1
             self._epsilon = max(self._epsilon_min, self._epsilon * self._epsilon_decay)
             self.save()
 
     def reset_episode(self) -> None:
         """Drop any in-flight transition when control mode or episode changes."""
-        self._last_state = None
-        self._last_action_key = None
+        self._last_state_key = None
+        self._last_state_vector = None
+        self._last_action_index = None
+        self._last_can_shoot = False
         self._pending_reward = 0.0
 
     def status_text(self) -> str:
         """Return a short status string for the HUD."""
+        loss_value = self._average_loss()
+        loss_text = f"{loss_value:.4f}" if loss_value is not None else "--"
         return (
-            f"eps {self._epsilon:.2f} | episodes {self._episodes}"
-            f" | demos {self._manual_samples}"
+            f"torch/{self.device_name()} | eps {self._epsilon:.2f} | ep {self._episodes}"
+            f" | loss {loss_text}"
         )
 
+    def training_overlay_lines(self) -> list[str]:
+        """Return detailed metrics that can be rendered in the HUD."""
+        avg_loss = self._average_loss()
+        avg_reward = self._average_reward()
+        return [
+            f"backend: torch  device: {self.device_name()}",
+            f"episodes: {self._episodes}  epsilon: {self._epsilon:.3f}  demos: {self._manual_samples}",
+            f"updates: {self._train_steps}  rl: {self._rl_updates}  imitation: {self._imitation_updates}",
+            f"loss: {avg_loss:.4f}" if avg_loss is not None else "loss: --",
+            f"avg reward: {avg_reward:.3f}  replay: {len(self._replay_buffer)}",
+        ]
+
+    def device_name(self) -> str:
+        return "cuda" if self._device.type == "cuda" else "cpu"
+
+    def train_background(self) -> None:
+        """Run extra replay-only updates to keep the GPU busier during play."""
+        self._train_from_replay(update_count=AI_BACKGROUND_UPDATES_PER_FRAME)
+
     def save(self) -> None:
-        """Persist learned values to disk."""
+        """Persist model weights, optimizer state, and training metadata to disk."""
         payload = {
+            "backend": "torch",
+            "device": self.device_name(),
             "epsilon": self._epsilon,
             "episodes": self._episodes,
             "manual_samples": self._manual_samples,
-            "q_values": self._q_values,
+            "train_steps": self._train_steps,
+            "rl_updates": self._rl_updates,
+            "imitation_updates": self._imitation_updates,
             "policy_counts": self._policy_counts,
         }
-        with open(self._memory_path, "w", encoding="utf-8") as f:
-            json.dump(payload, f, indent=2, sort_keys=True)
+        with open(self._memory_path, "w", encoding="utf-8") as handle:
+            json.dump(payload, handle, indent=2, sort_keys=True)
+        torch.save(
+            {
+                "policy_state": self._policy_net.state_dict(),
+                "target_state": self._target_net.state_dict(),
+                "optimizer_state": self._optimizer.state_dict(),
+            },
+            self._model_path,
+        )
         self._dirty_updates = 0
 
     def _load(self) -> None:
-        if not os.path.exists(self._memory_path):
-            return
-        try:
-            with open(self._memory_path, "r", encoding="utf-8") as f:
-                payload = json.load(f)
-        except (OSError, json.JSONDecodeError):
-            return
-        self._epsilon = max(self._epsilon_min, float(payload.get("epsilon", self._epsilon)))
-        self._episodes = int(payload.get("episodes", 0))
-        self._manual_samples = int(payload.get("manual_samples", 0))
-        self._q_values = payload.get("q_values", {})
-        self._policy_counts = payload.get("policy_counts", {})
+        payload = None
+        if os.path.exists(self._memory_path):
+            try:
+                with open(self._memory_path, "r", encoding="utf-8") as handle:
+                    payload = json.load(handle)
+            except (OSError, json.JSONDecodeError):
+                payload = None
 
-    def _choose_action_key(self, state: str, valid_actions: list[str]) -> str:
-        self._ensure_action_store(self._q_values, state, float)
+        if payload:
+            self._epsilon = max(self._epsilon_min, float(payload.get("epsilon", self._epsilon)))
+            self._episodes = int(payload.get("episodes", 0))
+            self._manual_samples = int(payload.get("manual_samples", 0))
+            self._train_steps = int(payload.get("train_steps", 0))
+            self._rl_updates = int(payload.get("rl_updates", 0))
+            self._imitation_updates = int(payload.get("imitation_updates", 0))
+            self._policy_counts = payload.get("policy_counts", {})
+
+        if os.path.exists(self._model_path):
+            try:
+                checkpoint = torch.load(self._model_path, map_location=self._device)
+            except (OSError, RuntimeError):
+                checkpoint = None
+            if checkpoint:
+                policy_state = checkpoint.get("policy_state", {})
+                target_state = checkpoint.get("target_state", policy_state)
+                policy_loaded = self._load_matching_state_dict(self._policy_net, policy_state)
+                target_loaded = self._load_matching_state_dict(self._target_net, target_state)
+                optimizer_state = checkpoint.get("optimizer_state")
+                if optimizer_state and policy_loaded and target_loaded:
+                    self._optimizer.load_state_dict(optimizer_state)
+
+    @staticmethod
+    def _load_matching_state_dict(model: nn.Module, state_dict: object) -> bool:
+        if not isinstance(state_dict, dict):
+            return False
+
+        current_state = model.state_dict()
+        if set(state_dict.keys()) != set(current_state.keys()):
+            return False
+
+        for key, current_value in current_state.items():
+            if getattr(state_dict[key], "shape", None) != current_value.shape:
+                return False
+
+        model.load_state_dict(state_dict, strict=True)
+        return True
+
+    def _build_network(self, input_dim: int, output_dim: int) -> nn.Module:
+        network = nn.Sequential(
+            nn.Linear(input_dim, AI_HIDDEN_DIM),
+            nn.ReLU(),
+            nn.Linear(AI_HIDDEN_DIM, AI_HIDDEN_DIM),
+            nn.ReLU(),
+            nn.Linear(AI_HIDDEN_DIM, output_dim),
+        ).to(self._device)
+        final_layer = network[-1]
+        if isinstance(final_layer, nn.Linear):
+            nn.init.zeros_(final_layer.weight)
+            nn.init.zeros_(final_layer.bias)
+        return network
+
+    def _choose_action_index(
+        self,
+        state_key: str,
+        state_vector: list[float],
+        can_shoot: bool,
+    ) -> int:
+        valid_indices = self._valid_action_indices(can_shoot)
         if random.random() < self._epsilon:
-            return random.choice(valid_actions)
+            return random.choice(valid_indices)
 
-        best_action = valid_actions[0]
-        best_value = self._action_score(state, best_action)
-        for action in valid_actions[1:]:
-            value = self._action_score(state, action)
-            if value > best_value:
-                best_action = action
-                best_value = value
-        return best_action
+        state_tensor = self._vector_tensor(state_vector).unsqueeze(0)
+        with torch.no_grad():
+            q_values = self._policy_net(state_tensor).squeeze(0)
+            manual_bias = self._manual_bias_tensor(state_key)
+            scores = q_values + self._imitation_weight * manual_bias
 
-    def _action_score(self, state: str, action_key: str) -> float:
-        q_values = self._ensure_action_store(self._q_values, state, float)
-        manual_counts = self._ensure_action_store(self._policy_counts, state, int)
+        best_index = valid_indices[0]
+        best_score = float(scores[best_index].item())
+        for action_index in valid_indices[1:]:
+            score = float(scores[action_index].item())
+            if score > best_score:
+                best_index = action_index
+                best_score = score
+        return best_index
+
+    def _manual_bias_tensor(self, state_key: str) -> torch.Tensor:
+        manual_counts = self._ensure_action_store(self._policy_counts, state_key)
         total_manual = sum(manual_counts.values())
-        manual_bias = 0.0
-        if total_manual > 0:
-            manual_bias = manual_counts[action_key] / total_manual
-        return float(q_values[action_key]) + self._imitation_weight * manual_bias
+        values = []
+        for action in self._ACTIONS:
+            action_key = self._encode_action(*action)
+            if total_manual == 0:
+                values.append(0.0)
+            else:
+                values.append(manual_counts[action_key] / total_manual)
+        return torch.tensor(values, dtype=torch.float32, device=self._device)
 
     def _update_from_transition(
-        self, next_state: str | None, done: bool = False
+        self,
+        *,
+        next_state_vector: list[float] | None,
+        next_can_shoot: bool,
+        done: bool = False,
     ) -> None:
-        if self._last_state is None or self._last_action_key is None:
+        if self._last_state_vector is None or self._last_action_index is None:
             if done:
                 self.reset_episode()
             return
 
-        action_values = self._ensure_action_store(self._q_values, self._last_state, float)
-        old_value = float(action_values[self._last_action_key])
-        future_reward = 0.0
-        if not done and next_state is not None:
-            next_values = self._ensure_action_store(self._q_values, next_state, float)
-            future_reward = max(float(value) for value in next_values.values())
-
-        target = self._pending_reward + self._discount_factor * future_reward
-        action_values[self._last_action_key] = old_value + self._learning_rate * (target - old_value)
+        transition: Transition = (
+            list(self._last_state_vector),
+            self._last_action_index,
+            self._pending_reward,
+            list(next_state_vector) if next_state_vector is not None else None,
+            next_can_shoot,
+            done,
+        )
+        self._replay_buffer.append(transition)
+        self._train_from_replay()
         self._pending_reward = 0.0
         self._dirty_updates += 1
         if done:
             self.reset_episode()
 
-    @staticmethod
-    def _ensure_action_store(table: dict[str, dict[str, float]], state: str, value_type):
-        state_values = table.setdefault(state, {})
-        default_value = value_type()
-        for action in LearningAI._ACTIONS:
-            state_values.setdefault(LearningAI._encode_action(*action), default_value)
-        return state_values
+    def _train_imitation_step(self, state_vector: list[float], action_index: int) -> None:
+        state_tensor = self._vector_tensor(state_vector).unsqueeze(0)
+        action_tensor = torch.tensor([action_index], dtype=torch.long, device=self._device)
 
-    def _state_key(self, player, enemies, enemy_bullets, *, can_shoot: bool) -> str:
+        self._policy_net.train()
+        logits = self._policy_net(state_tensor)
+        loss = nn.functional.cross_entropy(logits, action_tensor)
+        self._optimizer.zero_grad(set_to_none=True)
+        loss.backward()
+        self._optimizer.step()
+
+        self._train_steps += 1
+        self._imitation_updates += 1
+        self._recent_losses.append(float(loss.item()))
+        self._sync_target_if_needed()
+
+    def _train_from_replay(self, update_count: int = AI_UPDATES_PER_STEP) -> None:
+        if len(self._replay_buffer) < AI_MIN_REPLAY_TO_TRAIN:
+            return
+
+        for _ in range(update_count):
+            batch_size = min(AI_BATCH_SIZE, len(self._replay_buffer))
+            batch = random.sample(self._replay_buffer, batch_size)
+            states = torch.tensor([item[0] for item in batch], dtype=torch.float32, device=self._device)
+            actions = torch.tensor([item[1] for item in batch], dtype=torch.long, device=self._device)
+            rewards = torch.tensor([item[2] for item in batch], dtype=torch.float32, device=self._device)
+            non_terminal_mask = torch.tensor(
+                [item[3] is not None and not item[5] for item in batch],
+                dtype=torch.bool,
+                device=self._device,
+            )
+
+            next_state_values = torch.zeros(batch_size, dtype=torch.float32, device=self._device)
+            if bool(non_terminal_mask.any().item()):
+                next_states = torch.tensor(
+                    [item[3] for item in batch if item[3] is not None and not item[5]],
+                    dtype=torch.float32,
+                    device=self._device,
+                )
+                next_can_shoot_values = [item[4] for item in batch if item[3] is not None and not item[5]]
+                with torch.no_grad():
+                    target_q = self._target_net(next_states)
+                    best_future = []
+                    for row_index, can_shoot in enumerate(next_can_shoot_values):
+                        valid_indices = self._valid_action_indices(can_shoot)
+                        best_future.append(torch.max(target_q[row_index, valid_indices]))
+                    next_state_values[non_terminal_mask] = torch.stack(best_future)
+
+            targets = rewards + self._discount_factor * next_state_values
+            current_q = self._policy_net(states).gather(1, actions.unsqueeze(1)).squeeze(1)
+            loss = self._loss_fn(current_q, targets)
+
+            self._policy_net.train()
+            self._optimizer.zero_grad(set_to_none=True)
+            loss.backward()
+            self._optimizer.step()
+
+            self._train_steps += 1
+            self._rl_updates += 1
+            self._recent_losses.append(float(loss.item()))
+            self._sync_target_if_needed()
+
+    def _sync_target_if_needed(self) -> None:
+        if self._train_steps % AI_TARGET_SYNC_INTERVAL == 0:
+            self._target_net.load_state_dict(self._policy_net.state_dict())
+
+    def _encode_state(
+        self,
+        player,
+        enemies,
+        enemy_bullets,
+        *,
+        can_shoot: bool,
+    ) -> tuple[str, list[float]]:
         player_x = player.rect.centerx
         player_bucket = self._bucket_position(player_x)
 
@@ -220,26 +444,55 @@ class LearningAI:
                 nearest_bullet_dy = dy
                 nearest_bullet_dx = bullet.rect.centerx - player_x
 
-        enemy_bucket = self._bucket_dx(nearest_enemy_dx)
-        enemy_distance = self._bucket_distance(nearest_enemy_dy)
-        bullet_bucket = self._bucket_dx(nearest_bullet_dx)
-        bullet_distance = self._bucket_distance(nearest_bullet_dy)
-        danger_bucket = "danger" if nearest_bullet_dy < 120 and abs(nearest_bullet_dx) < 80 else "safe"
-        enemy_count_bucket = self._bucket_enemy_count(len(enemies))
-        cooldown_bucket = "ready" if can_shoot else "wait"
-
-        return ":".join(
-            (
-                player_bucket,
-                enemy_bucket,
-                enemy_distance,
-                bullet_bucket,
-                bullet_distance,
-                danger_bucket,
-                enemy_count_bucket,
-                cooldown_bucket,
-            )
+        tokens = (
+            player_bucket,
+            self._bucket_dx(nearest_enemy_dx),
+            self._bucket_distance(nearest_enemy_dy),
+            self._bucket_dx(nearest_bullet_dx),
+            self._bucket_distance(nearest_bullet_dy),
+            "danger" if nearest_bullet_dy < 120 and abs(nearest_bullet_dx) < 80 else "safe",
+            self._bucket_enemy_count(len(enemies)),
+            "ready" if can_shoot else "wait",
         )
+        return ":".join(tokens), self._state_vector(tokens)
+
+    def _state_vector(self, tokens: tuple[str, ...]) -> list[float]:
+        values: list[float] = []
+        for token, token_group in zip(tokens, self._TOKEN_GROUPS, strict=True):
+            for candidate in token_group:
+                values.append(1.0 if token == candidate else 0.0)
+        return values
+
+    def _vector_tensor(self, state_vector: list[float]) -> torch.Tensor:
+        return torch.tensor(state_vector, dtype=torch.float32, device=self._device)
+
+    def _average_loss(self) -> float | None:
+        if not self._recent_losses:
+            return None
+        return sum(self._recent_losses) / len(self._recent_losses)
+
+    def _average_reward(self) -> float:
+        if not self._recent_rewards:
+            return 0.0
+        return sum(self._recent_rewards) / len(self._recent_rewards)
+
+    @staticmethod
+    def _derive_model_path(memory_path: str) -> str:
+        if memory_path.endswith(".json"):
+            return memory_path[:-5] + ".pt"
+        directory = os.path.dirname(memory_path)
+        return os.path.join(directory, AI_MODEL_FILE)
+
+    @staticmethod
+    def _ensure_action_store(table: dict[str, dict[str, int]], state: str) -> dict[str, int]:
+        state_values = table.setdefault(state, {})
+        for action in LearningAI._ACTIONS:
+            state_values.setdefault(LearningAI._encode_action(*action), 0)
+        return state_values
+
+    @staticmethod
+    def _action_to_index(action: Action) -> int:
+        return LearningAI._ACTIONS.index(action)
 
     @staticmethod
     def _bucket_dx(dx: int) -> str:
@@ -278,19 +531,14 @@ class LearningAI:
         return f"lane_{lane}"
 
     @classmethod
-    def _valid_action_keys(cls, can_shoot: bool) -> list[str]:
-        valid_actions: list[str] = []
-        for move_dir, should_shoot in cls._ACTIONS:
+    def _valid_action_indices(cls, can_shoot: bool) -> list[int]:
+        valid_actions: list[int] = []
+        for index, (_, should_shoot) in enumerate(cls._ACTIONS):
             if should_shoot and not can_shoot:
                 continue
-            valid_actions.append(cls._encode_action(move_dir, should_shoot))
+            valid_actions.append(index)
         return valid_actions
 
     @staticmethod
     def _encode_action(move_dir: int, should_shoot: bool) -> str:
         return f"{move_dir}:{1 if should_shoot else 0}"
-
-    @staticmethod
-    def _decode_action(action_key: str) -> tuple[int, bool]:
-        move_text, shoot_text = action_key.split(":", maxsplit=1)
-        return int(move_text), shoot_text == "1"

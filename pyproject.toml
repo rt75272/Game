@@ -5,7 +5,9 @@ description = "A graphical Space Invaders game built with pygame."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "numpy>=2.2.0",
     "pygame>=2.0.0",
+    "torch>=2.6.0",
 ]
 
 [project.scripts]
