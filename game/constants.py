@@ -66,3 +66,12 @@ EXPLOSION_DURATION: int = 600       # total ms for explosion animation
 # Star settings
 # ---------------------------------------------------------------------------
 NUM_STARS: int = 80
+
+# ---------------------------------------------------------------------------
+# AI settings
+# ---------------------------------------------------------------------------
+AI_ENABLED_BY_DEFAULT: bool = True
+AI_EPSILON_START: float = 0.18
+AI_EPSILON_MIN: float = 0.03
+AI_LEARNING_RATE: float = 0.25
+AI_MEMORY_FILE: str = "ai_memory.json"
