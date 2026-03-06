@@ -1,0 +1,68 @@
+"""Game-wide constants and configuration values."""
+
+from __future__ import annotations
+
+# ---------------------------------------------------------------------------
+# Screen settings
+# ---------------------------------------------------------------------------
+SCREEN_WIDTH: int = 800
+SCREEN_HEIGHT: int = 600
+FPS: int = 60
+TITLE: str = "Space Invaders"
+
+# ---------------------------------------------------------------------------
+# Colors (R, G, B)
+# ---------------------------------------------------------------------------
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+GREEN = (50, 220, 50)
+DARK_GREEN = (0, 150, 0)
+RED = (220, 60, 60)
+BRIGHT_RED = (255, 50, 50)
+BLUE = (50, 100, 255)
+CYAN = (0, 220, 255)
+YELLOW = (255, 220, 50)
+ORANGE = (255, 140, 0)
+PURPLE = (180, 50, 220)
+GRAY = (150, 150, 150)
+DARK_GRAY = (40, 40, 40)
+LIGHT_CYAN = (180, 255, 255)
+
+# ---------------------------------------------------------------------------
+# Player settings
+# ---------------------------------------------------------------------------
+PLAYER_SPEED: int = 5
+PLAYER_SHOOT_DELAY: int = 300       # milliseconds between shots
+PLAYER_LIVES: int = 3
+
+# ---------------------------------------------------------------------------
+# Enemy settings
+# ---------------------------------------------------------------------------
+ENEMY_ROWS: int = 3
+ENEMY_COLS: int = 8
+ENEMY_H_SPACING: int = 70           # horizontal gap between enemy centres
+ENEMY_V_SPACING: int = 60           # vertical gap between enemy centres
+ENEMY_OFFSET_X: int = 100           # left margin for the first enemy
+ENEMY_OFFSET_Y: int = 80            # top margin for the first row
+ENEMY_MOVE_DELAY_START: int = 800   # ms between lateral moves (decreases)
+ENEMY_MOVE_STEP: int = 20           # pixels per lateral move
+ENEMY_DROP_AMOUNT: int = 20         # pixels to drop when hitting screen edge
+ENEMY_ANIM_DELAY: int = 600         # ms between sprite animation frames
+
+# ---------------------------------------------------------------------------
+# Bullet settings
+# ---------------------------------------------------------------------------
+PLAYER_BULLET_SPEED: int = -12      # negative = up
+ENEMY_BULLET_SPEED: int = 7
+ENEMY_SHOOT_CHANCE: float = 0.001   # per-enemy probability each frame
+
+# ---------------------------------------------------------------------------
+# Explosion settings
+# ---------------------------------------------------------------------------
+EXPLOSION_FRAMES: int = 8           # number of animation frames
+EXPLOSION_DURATION: int = 600       # total ms for explosion animation
+
+# ---------------------------------------------------------------------------
+# Star settings
+# ---------------------------------------------------------------------------
+NUM_STARS: int = 80
