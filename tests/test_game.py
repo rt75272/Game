@@ -192,7 +192,8 @@ def test_game_starts_in_menu_state() -> None:
     assert g._state == "menu"
 
 
-def test_new_game_transitions_to_playing() -> None:
+def test_state_can_be_set_to_playing() -> None:
+    """Verify that the game state variable accepts the 'playing' value."""
     g = Game()
     g._new_game()
     g._state = "playing"
