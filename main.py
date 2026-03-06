@@ -2,7 +2,7 @@
 
 Run with::
 
-    python main.py
+    uv run space-invaders
 """
 
 from game.game import Game

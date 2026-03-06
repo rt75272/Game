@@ -1,0 +1,280 @@
+{
+  "episodes": 0,
+  "epsilon": 0.18,
+  "manual_samples": 475,
+  "policy_counts": {
+    "lane_0:center:near:center:none:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 5,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:center:none:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 51,
+      "0:1": 1,
+      "1:0": 1,
+      "1:1": 0
+    },
+    "lane_0:far_right:near:center:none:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 18,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_0:right:near:center:none:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 2,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:center:near:center:none:safe:many:ready": {
+      "-1:0": 1,
+      "-1:1": 0,
+      "0:0": 29,
+      "0:1": 0,
+      "1:0": 5,
+      "1:1": 0
+    },
+    "lane_1:center:near:center:none:safe:many:wait": {
+      "-1:0": 9,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:center:near:left:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 13,
+      "0:1": 0,
+      "1:0": 6,
+      "1:1": 0
+    },
+    "lane_1:far_left:near:center:none:safe:many:ready": {
+      "-1:0": 4,
+      "-1:1": 0,
+      "0:0": 9,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_left:near:far_right:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 5,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_left:near:far_right:mid:safe:many:ready": {
+      "-1:0": 7,
+      "-1:1": 0,
+      "0:0": 11,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_left:near:far_right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 7,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_left:near:far_right:near:safe:many:ready": {
+      "-1:0": 4,
+      "-1:1": 0,
+      "0:0": 10,
+      "0:1": 1,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_left:near:far_right:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 11,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:far_right:near:center:none:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 10,
+      "1:1": 0
+    },
+    "lane_1:left:near:center:none:safe:many:ready": {
+      "-1:0": 4,
+      "-1:1": 1,
+      "0:0": 19,
+      "0:1": 1,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:left:near:center:none:safe:many:wait": {
+      "-1:0": 2,
+      "-1:1": 0,
+      "0:0": 25,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_1:right:near:center:none:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 11,
+      "1:1": 0
+    },
+    "lane_2:center:near:center:none:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 24,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:center:near:far_left:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 7,
+      "1:1": 0
+    },
+    "lane_2:center:near:left:far:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 0,
+      "0:1": 0,
+      "1:0": 1,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:none:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 4,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:center:none:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 19,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:far:safe:many:ready": {
+      "-1:0": 7,
+      "-1:1": 0,
+      "0:0": 11,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:far:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 1,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:mid:safe:many:ready": {
+      "-1:0": 2,
+      "-1:1": 0,
+      "0:0": 16,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_left:near:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 13,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_right:far:safe:many:ready": {
+      "-1:0": 8,
+      "-1:1": 0,
+      "0:0": 6,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_right:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 7,
+      "0:1": 1,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_right:mid:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 4,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_right:near:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 3,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:far_left:near:far_right:near:safe:many:wait": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 13,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:left:near:center:none:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 13,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:left:near:far_left:mid:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 19,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    },
+    "lane_2:left:near:far_left:near:safe:many:ready": {
+      "-1:0": 0,
+      "-1:1": 0,
+      "0:0": 13,
+      "0:1": 0,
+      "1:0": 0,
+      "1:1": 0
+    }
+  },
+  "q_values": {}
+}

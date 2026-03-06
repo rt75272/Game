@@ -34,9 +34,11 @@ from game.constants import (
     ENEMY_SHOOT_CHANCE,
     NUM_STARS,
     AI_ENABLED_BY_DEFAULT,
-    AI_REWARD_SHOT,
+    AI_REWARD_SURVIVAL,
+    AI_REWARD_ALIGNMENT,
     AI_REWARD_ENEMY_DESTROYED,
     AI_REWARD_LEVEL_CLEAR,
+    AI_PENALTY_SHOT,
     AI_PENALTY_PLAYER_HIT,
     AI_PENALTY_GAME_OVER,
 )
@@ -73,6 +75,7 @@ class Game:
         self._level: int = 1
         self._ai_enabled: bool = AI_ENABLED_BY_DEFAULT
         self._ai = LearningAI()
+        self._manual_shoot_requested: bool = False
 
         # Sprite groups (populated by _new_game / _new_level)
         self._all_sprites: pygame.sprite.Group = pygame.sprite.Group()
@@ -117,6 +120,8 @@ class Game:
     def _new_game(self) -> None:
         """Reset everything and start from level 1."""
         self._level = 1
+        self._manual_shoot_requested = False
+        self._ai.reset_episode()
         # Keep stars; clear everything else
         for group in (
             self._enemies,
@@ -179,12 +184,10 @@ class Game:
                 elif self._state == "playing":
                     if event.key == pygame.K_t:
                         self._ai_enabled = not self._ai_enabled
-                    if not self._ai_enabled:
-                        if event.key == pygame.K_SPACE and self._player:
-                            bullet = self._player.shoot()
-                            if bullet:
-                                self._player_bullets.add(bullet)
-                                self._all_sprites.add(bullet)
+                        self._manual_shoot_requested = False
+                        self._ai.reset_episode()
+                    elif not self._ai_enabled and event.key == pygame.K_SPACE:
+                        self._manual_shoot_requested = True
 
                 elif self._state in ("game_over", "win"):
                     if event.key in (pygame.K_RETURN, pygame.K_SPACE):
@@ -201,11 +204,15 @@ class Game:
             self._explosions.update()
             return
 
+        if not self._player:
+            return
+
         # --- sprites ---
         if self._ai_enabled:
+            self._ai.apply_reward(AI_REWARD_SURVIVAL + self._ai_alignment_reward())
             self._update_ai_player()
         else:
-            self._player.update()
+            self._update_manual_player()
         self._enemies.update()
         self._player_bullets.update()
         self._enemy_bullets.update()
@@ -266,7 +273,7 @@ class Game:
     def _update_ai_player(self) -> None:
         if not self._player:
             return
-        self._player.update()
+        self._player.refresh()
         if self._player.is_hidden:
             return
 
@@ -274,17 +281,70 @@ class Game:
         move_dir, should_shoot = self._ai.choose_actions(
             self._player, self._enemies, self._enemy_bullets, can_shoot=can_shoot
         )
-        if move_dir < 0 and self._player.rect.left > 0:
-            self._player.rect.x -= self._player.speed
-        elif move_dir > 0 and self._player.rect.right < SCREEN_WIDTH:
-            self._player.rect.x += self._player.speed
-
+        self._apply_player_action(move_dir, should_shoot)
         if should_shoot:
-            bullet = self._player.shoot()
-            if bullet:
-                self._player_bullets.add(bullet)
-                self._all_sprites.add(bullet)
-                self._ai.apply_reward(AI_REWARD_SHOT)
+            self._ai.apply_reward(AI_PENALTY_SHOT)
+
+    def _update_manual_player(self) -> None:
+        if not self._player:
+            return
+
+        self._player.refresh()
+        if self._player.is_hidden:
+            self._manual_shoot_requested = False
+            return
+
+        move_dir, should_shoot = self._manual_action_from_input()
+        can_shoot = self._player.can_shoot()
+        actual_shoot = should_shoot and can_shoot
+        self._ai.observe_player_action(
+            self._player,
+            self._enemies,
+            self._enemy_bullets,
+            move_dir,
+            actual_shoot,
+            can_shoot=can_shoot,
+        )
+        self._apply_player_action(move_dir, actual_shoot)
+        self._manual_shoot_requested = False
+
+    def _manual_action_from_input(self) -> tuple[int, bool]:
+        keys = pygame.key.get_pressed()
+        move_dir = 0
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            move_dir -= 1
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            move_dir += 1
+        move_dir = max(-1, min(1, move_dir))
+        return move_dir, self._manual_shoot_requested
+
+    def _apply_player_action(self, move_dir: int, should_shoot: bool) -> None:
+        if not self._player or self._player.is_hidden:
+            return
+
+        self._player.move(move_dir)
+        if not should_shoot:
+            return
+
+        bullet = self._player.shoot()
+        if bullet:
+            self._player_bullets.add(bullet)
+            self._all_sprites.add(bullet)
+
+    def _ai_alignment_reward(self) -> float:
+        if not self._player or self._player.is_hidden or not self._enemies:
+            return 0.0
+
+        nearest_enemy = min(
+            self._enemies,
+            key=lambda enemy: (
+                abs(enemy.rect.centerx - self._player.rect.centerx),
+                enemy.rect.centery,
+            ),
+        )
+        if abs(nearest_enemy.rect.centerx - self._player.rect.centerx) <= 24:
+            return AI_REWARD_ALIGNMENT
+        return 0.0
 
     def _move_enemies(self) -> None:
         """Shift all enemies sideways; drop and reverse direction at edges."""
@@ -408,7 +468,12 @@ class Game:
             (SCREEN_WIDTH // 2 - level_surf.get_width() // 2, 8),
         )
         ai_surf = self._font_small.render(
-            f"AI: {'ON' if self._ai_enabled else 'OFF'} (T to toggle)", True, CYAN
+            (
+                f"AI: {'ON' if self._ai_enabled else 'OFF'} (T to toggle)"
+                f"  |  {self._ai.status_text()}"
+            ),
+            True,
+            CYAN,
         )
         self._screen.blit(
             ai_surf,

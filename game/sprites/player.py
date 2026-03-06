@@ -101,21 +101,40 @@ class Player(pygame.sprite.Sprite):
     def can_shoot(self) -> bool:
         return pygame.time.get_ticks() - self._last_shot >= self.shoot_delay
 
-    # ------------------------------------------------------------------
-    # Sprite interface
-    # ------------------------------------------------------------------
-
-    def update(self) -> None:  # type: ignore[override]
-        # Respawn check
+    def refresh(self) -> None:
+        """Advance non-input player state such as hidden respawns."""
         if self._hidden:
             if pygame.time.get_ticks() - self._hide_start >= self._hide_duration:
                 self._hidden = False
                 self.rect.centerx = SCREEN_WIDTH // 2
                 self.rect.bottom = SCREEN_HEIGHT - 12
+
+    def move(self, direction: int) -> None:
+        """Move the player horizontally using the shared action semantics."""
+        if self._hidden:
+            return
+
+        if direction < 0:
+            self.rect.x -= self.speed
+        elif direction > 0:
+            self.rect.x += self.speed
+
+        self.rect.left = max(0, self.rect.left)
+        self.rect.right = min(SCREEN_WIDTH, self.rect.right)
+
+    # ------------------------------------------------------------------
+    # Sprite interface
+    # ------------------------------------------------------------------
+
+    def update(self) -> None:  # type: ignore[override]
+        self.refresh()
+        if self._hidden:
             return
 
         keys = pygame.key.get_pressed()
-        if (keys[pygame.K_LEFT] or keys[pygame.K_a]) and self.rect.left > 0:
-            self.rect.x -= self.speed
-        if (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and self.rect.right < SCREEN_WIDTH:
-            self.rect.x += self.speed
+        direction = 0
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            direction -= 1
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            direction += 1
+        self.move(direction)
