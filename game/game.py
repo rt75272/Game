@@ -33,7 +33,14 @@ from game.constants import (
     ENEMY_DROP_AMOUNT,
     ENEMY_SHOOT_CHANCE,
     NUM_STARS,
+    AI_ENABLED_BY_DEFAULT,
+    AI_REWARD_SHOT,
+    AI_REWARD_ENEMY_DESTROYED,
+    AI_REWARD_LEVEL_CLEAR,
+    AI_PENALTY_PLAYER_HIT,
+    AI_PENALTY_GAME_OVER,
 )
+from game.ai import LearningAI
 from game.sprites import Player, Enemy, Bullet, Explosion, Star
 
 
@@ -64,6 +71,8 @@ class Game:
 
         self._state: str = "menu"
         self._level: int = 1
+        self._ai_enabled: bool = AI_ENABLED_BY_DEFAULT
+        self._ai = LearningAI()
 
         # Sprite groups (populated by _new_game / _new_level)
         self._all_sprites: pygame.sprite.Group = pygame.sprite.Group()
@@ -164,13 +173,18 @@ class Game:
                     if event.key in (pygame.K_RETURN, pygame.K_SPACE):
                         self._new_game()
                         self._state = "playing"
+                    elif event.key == pygame.K_t:
+                        self._ai_enabled = not self._ai_enabled
 
                 elif self._state == "playing":
-                    if event.key == pygame.K_SPACE and self._player:
-                        bullet = self._player.shoot()
-                        if bullet:
-                            self._player_bullets.add(bullet)
-                            self._all_sprites.add(bullet)
+                    if event.key == pygame.K_t:
+                        self._ai_enabled = not self._ai_enabled
+                    if not self._ai_enabled:
+                        if event.key == pygame.K_SPACE and self._player:
+                            bullet = self._player.shoot()
+                            if bullet:
+                                self._player_bullets.add(bullet)
+                                self._all_sprites.add(bullet)
 
                 elif self._state in ("game_over", "win"):
                     if event.key in (pygame.K_RETURN, pygame.K_SPACE):
@@ -188,7 +202,10 @@ class Game:
             return
 
         # --- sprites ---
-        self._player.update()
+        if self._ai_enabled:
+            self._update_ai_player()
+        else:
+            self._player.update()
         self._enemies.update()
         self._player_bullets.update()
         self._enemy_bullets.update()
@@ -209,9 +226,11 @@ class Game:
             exp = Explosion(enemy.rect.center)
             self._explosions.add(exp)
             self._all_sprites.add(exp)
+            if self._ai_enabled:
+                self._ai.apply_reward(AI_REWARD_ENEMY_DESTROYED)
 
         # --- collision: enemy bullets vs player ---
-        if not self._player._hidden:
+        if not self._player.is_hidden:
             hits = pygame.sprite.spritecollide(
                 self._player, self._enemy_bullets, True
             )
@@ -220,8 +239,12 @@ class Game:
                 self._explosions.add(exp)
                 self._all_sprites.add(exp)
                 self._player.lives -= 1
+                if self._ai_enabled:
+                    self._ai.apply_reward(AI_PENALTY_PLAYER_HIT)
                 if self._player.lives <= 0:
                     self._state = "game_over"
+                    if self._ai_enabled:
+                        self._ai.apply_reward(AI_PENALTY_GAME_OVER, done=True)
                 else:
                     self._player.hide()
 
@@ -229,12 +252,39 @@ class Game:
         for enemy in self._enemies:
             if enemy.rect.bottom >= SCREEN_HEIGHT - 40:
                 self._state = "game_over"
+                if self._ai_enabled:
+                    self._ai.apply_reward(AI_PENALTY_GAME_OVER, done=True)
                 break
 
         # --- win condition ---
         if not self._enemies and self._state == "playing":
             self._level += 1
+            if self._ai_enabled:
+                self._ai.apply_reward(AI_REWARD_LEVEL_CLEAR, done=True)
             self._new_level()
+
+    def _update_ai_player(self) -> None:
+        if not self._player:
+            return
+        self._player.update()
+        if self._player.is_hidden:
+            return
+
+        can_shoot = self._player.can_shoot()
+        move_dir, should_shoot = self._ai.choose_actions(
+            self._player, self._enemies, self._enemy_bullets, can_shoot=can_shoot
+        )
+        if move_dir < 0 and self._player.rect.left > 0:
+            self._player.rect.x -= self._player.speed
+        elif move_dir > 0 and self._player.rect.right < SCREEN_WIDTH:
+            self._player.rect.x += self._player.speed
+
+        if should_shoot:
+            bullet = self._player.shoot()
+            if bullet:
+                self._player_bullets.add(bullet)
+                self._all_sprites.add(bullet)
+                self._ai.apply_reward(AI_REWARD_SHOT)
 
     def _move_enemies(self) -> None:
         """Shift all enemies sideways; drop and reverse direction at edges."""
@@ -301,6 +351,8 @@ class Game:
         self._draw_centred("PRESS SPACE TO START", SCREEN_HEIGHT // 2 + 20, YELLOW)
         self._draw_centred("ARROW KEYS / WASD  –  move", SCREEN_HEIGHT // 2 + 70, GRAY)
         self._draw_centred("SPACE  –  shoot", SCREEN_HEIGHT // 2 + 100, GRAY)
+        ai_text = f"T  –  AI {'ON' if self._ai_enabled else 'OFF'}"
+        self._draw_centred(ai_text, SCREEN_HEIGHT // 2 + 130, GRAY)
 
         # Decorative alien preview
         preview_frames = Enemy(0, 0, 0, 0)._frames
@@ -313,7 +365,7 @@ class Game:
         self._enemies.draw(self._screen)
         self._player_bullets.draw(self._screen)
         self._enemy_bullets.draw(self._screen)
-        if self._player and not self._player._hidden:
+        if self._player and not self._player.is_hidden:
             self._screen.blit(self._player.image, self._player.rect)
 
         self._draw_hud()
@@ -354,6 +406,13 @@ class Game:
         self._screen.blit(
             level_surf,
             (SCREEN_WIDTH // 2 - level_surf.get_width() // 2, 8),
+        )
+        ai_surf = self._font_small.render(
+            f"AI: {'ON' if self._ai_enabled else 'OFF'} (T to toggle)", True, CYAN
+        )
+        self._screen.blit(
+            ai_surf,
+            (SCREEN_WIDTH // 2 - ai_surf.get_width() // 2, SCREEN_HEIGHT - 28),
         )
 
         # Separator line

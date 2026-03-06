@@ -10,6 +10,7 @@ A graphical Space Invaders game built with Python and [pygame](https://www.pygam
 * **Progressive difficulty** – enemy movement speed increases with every cleared level
 * **HUD** – live score, lives remaining, and current level displayed on screen
 * **Game-state machine** – Menu → Playing → Game Over / Level Clear, all with smooth transitions
+* **Learning AI mode** – built-in AI can take control, learn from rewards, and persist knowledge across runs
 
 ## Controls
 
@@ -18,6 +19,7 @@ A graphical Space Invaders game built with Python and [pygame](https://www.pygam
 | `←` / `A` | Move left |
 | `→` / `D` | Move right |
 | `Space` | Shoot |
+| `T` | Toggle AI on/off |
 | `Space` / `Enter` | Confirm menu selection |
 
 ## Setup
