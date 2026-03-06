@@ -28,6 +28,7 @@ class LearningAI:
         base_dir = os.path.dirname(os.path.dirname(__file__))
         default_path = os.path.join(base_dir, AI_MEMORY_FILE)
         self._memory_path = memory_path or default_path
+        self._epsilon_start = epsilon
         self._epsilon = epsilon
         self._epsilon_min = epsilon_min
         self._learning_rate = learning_rate
@@ -41,7 +42,9 @@ class LearningAI:
         self._last_shoot_action: int | None = None
         self._load()
 
-    def choose_actions(self, player, enemies, enemy_bullets, *, can_shoot: bool) -> tuple[int, bool]:
+    def choose_actions(
+        self, player, enemies, enemy_bullets, *, can_shoot: bool
+    ) -> tuple[int, bool]:
         """Return movement direction (-1, 0, 1) and whether to shoot."""
         move_state, shoot_state = self._state_keys(player, enemies, enemy_bullets)
         move_action = self._choose_action(self._move_values, move_state, [-1, 0, 1])
@@ -77,7 +80,7 @@ class LearningAI:
             "shoot_values": self._shoot_values,
         }
         with open(self._memory_path, "w", encoding="utf-8") as f:
-            json.dump(payload, f, separators=(",", ":"))
+            json.dump(payload, f, indent=2, sort_keys=True)
 
     def _load(self) -> None:
         if not os.path.exists(self._memory_path):
@@ -98,7 +101,7 @@ class LearningAI:
         state: str,
         actions: list[int],
     ) -> int:
-        state_values = table.setdefault(state, {str(action): 0.0 for action in actions})
+        state_values = self._ensure_state_values(table, state, actions)
         if random.random() < self._epsilon:
             return random.choice(actions)
         best_action = actions[0]
@@ -119,10 +122,19 @@ class LearningAI:
     ) -> None:
         if state is None or action is None:
             return
-        actions = table.setdefault(state, {})
+        actions = self._ensure_state_values(table, state, [action])
         key = str(action)
         old_value = float(actions.get(key, 0.0))
         actions[key] = old_value + self._learning_rate * (reward - old_value)
+
+    @staticmethod
+    def _ensure_state_values(
+        table: dict[str, dict[str, float]], state: str, actions: list[int]
+    ) -> dict[str, float]:
+        state_values = table.setdefault(state, {})
+        for action in actions:
+            state_values.setdefault(str(action), 0.0)
+        return state_values
 
     def _state_keys(self, player, enemies, enemy_bullets) -> tuple[str, str]:
         player_x = player.rect.centerx
@@ -139,7 +151,7 @@ class LearningAI:
         nearest_bullet_dy = 9999
         for bullet in enemy_bullets:
             dy = player.rect.centery - bullet.rect.centery
-            if dy >= 0 and dy < nearest_bullet_dy:
+            if 0 <= dy < nearest_bullet_dy:
                 nearest_bullet_dy = dy
                 nearest_bullet_dx = bullet.rect.centerx - player_x
 

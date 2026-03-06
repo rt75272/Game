@@ -70,8 +70,13 @@ NUM_STARS: int = 80
 # ---------------------------------------------------------------------------
 # AI settings
 # ---------------------------------------------------------------------------
-AI_ENABLED_BY_DEFAULT: bool = True
+AI_ENABLED_BY_DEFAULT: bool = False
 AI_EPSILON_START: float = 0.18
 AI_EPSILON_MIN: float = 0.03
 AI_LEARNING_RATE: float = 0.25
 AI_MEMORY_FILE: str = "ai_memory.json"
+AI_REWARD_SHOT: float = 0.2
+AI_REWARD_ENEMY_DESTROYED: float = 2.5
+AI_REWARD_LEVEL_CLEAR: float = 5.0
+AI_PENALTY_PLAYER_HIT: float = -4.0
+AI_PENALTY_GAME_OVER: float = -8.0

@@ -34,6 +34,11 @@ from game.constants import (
     ENEMY_SHOOT_CHANCE,
     NUM_STARS,
     AI_ENABLED_BY_DEFAULT,
+    AI_REWARD_SHOT,
+    AI_REWARD_ENEMY_DESTROYED,
+    AI_REWARD_LEVEL_CLEAR,
+    AI_PENALTY_PLAYER_HIT,
+    AI_PENALTY_GAME_OVER,
 )
 from game.ai import LearningAI
 from game.sprites import Player, Enemy, Bullet, Explosion, Star
@@ -174,11 +179,12 @@ class Game:
                 elif self._state == "playing":
                     if event.key == pygame.K_t:
                         self._ai_enabled = not self._ai_enabled
-                    if not self._ai_enabled and event.key == pygame.K_SPACE and self._player:
-                        bullet = self._player.shoot()
-                        if bullet:
-                            self._player_bullets.add(bullet)
-                            self._all_sprites.add(bullet)
+                    if not self._ai_enabled:
+                        if event.key == pygame.K_SPACE and self._player:
+                            bullet = self._player.shoot()
+                            if bullet:
+                                self._player_bullets.add(bullet)
+                                self._all_sprites.add(bullet)
 
                 elif self._state in ("game_over", "win"):
                     if event.key in (pygame.K_RETURN, pygame.K_SPACE):
@@ -221,10 +227,10 @@ class Game:
             self._explosions.add(exp)
             self._all_sprites.add(exp)
             if self._ai_enabled:
-                self._ai.apply_reward(2.5)
+                self._ai.apply_reward(AI_REWARD_ENEMY_DESTROYED)
 
         # --- collision: enemy bullets vs player ---
-        if not self._player._hidden:
+        if not self._player.is_hidden:
             hits = pygame.sprite.spritecollide(
                 self._player, self._enemy_bullets, True
             )
@@ -234,11 +240,11 @@ class Game:
                 self._all_sprites.add(exp)
                 self._player.lives -= 1
                 if self._ai_enabled:
-                    self._ai.apply_reward(-4.0)
+                    self._ai.apply_reward(AI_PENALTY_PLAYER_HIT)
                 if self._player.lives <= 0:
                     self._state = "game_over"
                     if self._ai_enabled:
-                        self._ai.apply_reward(-8.0, done=True)
+                        self._ai.apply_reward(AI_PENALTY_GAME_OVER, done=True)
                 else:
                     self._player.hide()
 
@@ -247,25 +253,24 @@ class Game:
             if enemy.rect.bottom >= SCREEN_HEIGHT - 40:
                 self._state = "game_over"
                 if self._ai_enabled:
-                    self._ai.apply_reward(-8.0, done=True)
+                    self._ai.apply_reward(AI_PENALTY_GAME_OVER, done=True)
                 break
 
         # --- win condition ---
         if not self._enemies and self._state == "playing":
             self._level += 1
             if self._ai_enabled:
-                self._ai.apply_reward(5.0, done=True)
+                self._ai.apply_reward(AI_REWARD_LEVEL_CLEAR, done=True)
             self._new_level()
 
     def _update_ai_player(self) -> None:
         if not self._player:
             return
         self._player.update()
-        if self._player._hidden:
+        if self._player.is_hidden:
             return
 
-        now = pygame.time.get_ticks()
-        can_shoot = now - self._player._last_shot >= self._player.shoot_delay
+        can_shoot = self._player.can_shoot()
         move_dir, should_shoot = self._ai.choose_actions(
             self._player, self._enemies, self._enemy_bullets, can_shoot=can_shoot
         )
@@ -279,7 +284,7 @@ class Game:
             if bullet:
                 self._player_bullets.add(bullet)
                 self._all_sprites.add(bullet)
-                self._ai.apply_reward(0.2)
+                self._ai.apply_reward(AI_REWARD_SHOT)
 
     def _move_enemies(self) -> None:
         """Shift all enemies sideways; drop and reverse direction at edges."""
@@ -360,7 +365,7 @@ class Game:
         self._enemies.draw(self._screen)
         self._player_bullets.draw(self._screen)
         self._enemy_bullets.draw(self._screen)
-        if self._player and not self._player._hidden:
+        if self._player and not self._player.is_hidden:
             self._screen.blit(self._player.image, self._player.rect)
 
         self._draw_hud()

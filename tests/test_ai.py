@@ -13,7 +13,7 @@ class _Obj:
         self.rect.center = (centerx, centery)
 
 
-def _sample_state():
+def _create_sample_game_state():
     player = _Obj(300, 560)
     enemies = [_Obj(360, 120), _Obj(260, 170)]
     enemy_bullets = [_Obj(315, 520)]
@@ -22,7 +22,7 @@ def _sample_state():
 
 def test_ai_persists_learned_preferences(tmp_path) -> None:
     memory_path = str(tmp_path / "ai_memory.json")
-    player, enemies, enemy_bullets = _sample_state()
+    player, enemies, enemy_bullets = _create_sample_game_state()
 
     ai = LearningAI(memory_path=memory_path, epsilon=0.0)
     move_action, should_shoot = ai.choose_actions(
@@ -41,7 +41,7 @@ def test_ai_persists_learned_preferences(tmp_path) -> None:
 
 def test_ai_respects_shoot_cooldown_gate(tmp_path) -> None:
     memory_path = str(tmp_path / "ai_memory.json")
-    player, enemies, enemy_bullets = _sample_state()
+    player, enemies, enemy_bullets = _create_sample_game_state()
     ai = LearningAI(memory_path=memory_path, epsilon=0.0)
     _move_action, should_shoot = ai.choose_actions(
         player, enemies, enemy_bullets, can_shoot=False

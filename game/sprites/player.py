@@ -94,6 +94,13 @@ class Player(pygame.sprite.Sprite):
             return Bullet(self.rect.centerx, self.rect.top, is_player=True)
         return None
 
+    @property
+    def is_hidden(self) -> bool:
+        return self._hidden
+
+    def can_shoot(self) -> bool:
+        return pygame.time.get_ticks() - self._last_shot >= self.shoot_delay
+
     # ------------------------------------------------------------------
     # Sprite interface
     # ------------------------------------------------------------------
